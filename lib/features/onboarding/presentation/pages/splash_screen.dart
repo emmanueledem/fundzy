@@ -16,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void _handleStartup() {
-    Future<dynamic>.delayed(const Duration(seconds: 3),
+    Future<dynamic>.delayed(const Duration(seconds: 4),
       
       () => Navigator.pushReplacementNamed(
             context,

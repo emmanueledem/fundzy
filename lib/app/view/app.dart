@@ -10,11 +10,13 @@ class App extends StatelessWidget {
     return Builder(
       builder: (context) {
         return MaterialApp(
+          
           useInheritedMediaQuery: true,
           builder: DevicePreview.appBuilder,
           onGenerateRoute: generateRoute,
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
+     
             // appBarTheme: const AppBarTheme(
             //   color: AppColors.primaryColor,
             // ),
