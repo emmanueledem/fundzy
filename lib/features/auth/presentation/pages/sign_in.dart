@@ -12,6 +12,24 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
+  FocusNode focusNode = FocusNode();
+  String phoneNumberHintText = 'xx123344444';
+  String passwordHintText = '********';
+  @override
+  void initState() {
+    super.initState();
+    focusNode.addListener(() {
+      if (focusNode.hasFocus) {
+        phoneNumberHintText = '';
+        passwordHintText = '';
+      } else {
+        phoneNumberHintText = 'xx123344444';
+        passwordHintText = '********';
+      }
+      setState(() {});
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,7 +76,7 @@ class _SignInState extends State<SignIn> {
                               fontFamily: 'poppins',
                               height: 1.3),
                           decoration: kinputdecorationStyle.copyWith(
-                            labelText: 'xx123344444',
+                            hintText: phoneNumberHintText,
                           ),
                         ),
                       ],
@@ -85,7 +103,7 @@ class _SignInState extends State<SignIn> {
                               fontFamily: 'poppins',
                               height: 1.3),
                           decoration: kinputdecorationStyle.copyWith(
-                            labelText: '*******',
+                            hintText: passwordHintText,
                             suffixIcon: const Icon(Icons.remove_red_eye_sharp),
                           ),
                         )
