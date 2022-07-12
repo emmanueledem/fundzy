@@ -16,11 +16,17 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         viewToShow: const WelcomeScreen(),
       );
 
-    // case RouteName.appTab:
-    //   return _getPageRoute(
-    //     routeName: settings.name!,
-    //     viewToShow: const AppTabView(),
-    //   );
+    case RouteName.signIn:
+      return _getPageRoute(
+        routeName: settings.name!,
+        viewToShow: const SignIn(),
+      );
+
+    case RouteName.signUp:
+      return _getPageRoute(
+        routeName: settings.name!,
+        viewToShow: const SignUp(),
+      );
 
     // case RouteName.readNews:
     //   // ignore: cast_nullable_to_non_nullable

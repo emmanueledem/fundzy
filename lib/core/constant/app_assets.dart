@@ -6,4 +6,7 @@ class AppAsset {
   static const String welcomeEl3 = 'assets/images/Ellipse 3.png';
   static const String buttonEllipse1 = 'assets/images/Button_Ellipse1.png';
   static const String buttonEllipse2 = 'assets/images/Button_Ellipse2.png';
+  static const String authEllipse1 = 'assets/images/auth_ellipse1.png';
+  static const String authEllipse2 = 'assets/images/auth_ellipse2.png';
+  static const String authEllipse3 = 'assets/images/auth_ellipse3.png';
 }
