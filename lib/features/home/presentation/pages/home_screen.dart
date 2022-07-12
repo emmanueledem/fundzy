@@ -113,31 +113,30 @@ class _HomeScreenState extends State<HomeScreen> {
                   )
                 ],
               ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 30, horizontal: 25),
-                child: Row(
-                  children: [
-                    GestureDetector(
-                      onTap: () {},
-                      child: const ActionContainers(
-                        text: 'Transfer',
-                        icon: AppAsset.tranferLogo,
-                        color: Color(0xff36C4A2),
-                      ),
+              const Gap(50),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  GestureDetector(
+                    onTap: () {},
+                    child: const ActionContainers(
+                      text: 'Transfer',
+                      icon: AppAsset.tranferLogo,
+                      color: Color(0xff36C4A2),
                     ),
-                    const Gap(22),
-                    GestureDetector(
-                      onTap: () {},
-                      child: const ActionContainers(
-                        text: 'Withdraw',
-                        icon: AppAsset.witdraw,
-                        color: Color(0xffFFF1D1),
-                      ),
+                  ),
+                  const Gap(22),
+                  GestureDetector(
+                    onTap: () {},
+                    child: const ActionContainers(
+                      text: 'Withdraw',
+                      icon: AppAsset.witdraw,
+                      color: Color(0xffFFF1D1),
                     ),
-                  ],
-                ),
-              )
+                  ),
+                ],
+              ),
+              const Gap(70),
             ],
           ),
         ),
