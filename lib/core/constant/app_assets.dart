@@ -9,4 +9,8 @@ class AppAsset {
   static const String authEllipse1 = 'assets/images/auth_ellipse1.png';
   static const String authEllipse2 = 'assets/images/auth_ellipse2.png';
   static const String authEllipse3 = 'assets/images/auth_ellipse3.png';
+  static const String dashboardColumns = 'assets/images/columns.png';
+  static const String prrofileImage = 'assets/images/prrofile image.png';
+  static const String tranferLogo = 'assets/images/transfer.png';
+  static const String witdraw = 'assets/images/witdraw.png';
 }

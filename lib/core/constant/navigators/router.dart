@@ -28,6 +28,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         viewToShow: const SignUp(),
       );
 
+          case RouteName.appTab:
+      return _getPageRoute(
+        routeName: settings.name!,
+        viewToShow: const AppTabScreen(),
+      );
+
     // case RouteName.readNews:
     //   // ignore: cast_nullable_to_non_nullable
     //   final args = settings.arguments as ReadNewsScreenParams;

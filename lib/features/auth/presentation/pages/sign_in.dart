@@ -125,7 +125,7 @@ class _SignInState extends State<SignIn> {
                     const Gap(109),
                     GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(context, RouteName.signUp);
+                        Navigator.pushNamed(context, RouteName.appTab);
                       },
                       child: const AppBusyButton(
                         title: 'Sign in',

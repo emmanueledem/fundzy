@@ -37,7 +37,6 @@ class WelcomeScreen extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       Navigator.pushNamed(context, RouteName.signIn);
-                      print('jello');
                     },
                     child: const AppBusyButton(
                       title: 'Sign in',
@@ -47,8 +46,7 @@ class WelcomeScreen extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       Navigator.pushNamed(context, RouteName.signUp);
-                      print('jello');
-                      ;
+                      
                     },
                     child: Container(
                       height: 72,
