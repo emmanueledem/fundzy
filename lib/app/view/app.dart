@@ -16,7 +16,6 @@ class App extends StatelessWidget {
           onGenerateRoute: generateRoute,
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
-     
             // appBarTheme: const AppBarTheme(
             //   color: AppColors.primaryColor,
             // ),
@@ -24,6 +23,7 @@ class App extends StatelessWidget {
             // colorScheme: ColorScheme.fromSwatch(
             //   accentColor: AppColors.primaryColor,
             // ),
+            
             scaffoldBackgroundColor: AppColors.white,
           ),
           initialRoute: RouteName.splash,

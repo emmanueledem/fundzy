@@ -24,7 +24,6 @@ Future<void> main() async {
 
   await bootstrap(
     () => DevicePreview(
-
         // ignore: avoid_redundant_argument_values
         enabled: !kReleaseMode,
         builder: (context) {
