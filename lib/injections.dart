@@ -1,6 +1,13 @@
+import 'package:fundzy/injections.config.dart';
 import 'package:get_it/get_it.dart';
+import 'package:injectable/injectable.dart';
 
-final sl = GetIt.instance;
-
-// @InjectableInit()
-// void configureDependecies => $iniGetIt(sl);
+final sl = GetIt.instance;  
+  
+@InjectableInit(  
+  initializerName: r'$initGetIt', // default  
+  preferRelativeImports: true, // default  
+  asExtension: false, // default  
+)
+void configureDependencies()
+ => $initGetIt(sl);

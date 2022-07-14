@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fundzy/bootstrap.dart';
 import 'package:fundzy/core/constant/colors.dart';
+import 'package:fundzy/injections.dart';
 import 'app/view/view.dart';
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // await dotenv.load(fileName: '.env');
-  // configureDependencies();
+  configureDependencies();
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: AppColors.white,
     statusBarIconBrightness: Brightness.dark, // status bar icon color

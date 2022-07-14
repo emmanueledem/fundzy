@@ -9,7 +9,7 @@ packages:
     source: hosted
     version: "38.0.0"
   analyzer:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: analyzer
       url: "https://pub.dartlang.org"
@@ -386,7 +386,7 @@ packages:
     source: hosted
     version: "4.0.1"
   injectable:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: injectable
       url: "https://pub.dartlang.org"
@@ -428,7 +428,7 @@ packages:
     source: hosted
     version: "0.6.4"
   json_annotation:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: json_annotation
       url: "https://pub.dartlang.org"
@@ -448,6 +448,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
+  logger:
+    dependency: "direct main"
+    description:
+      name: logger
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.0"
   logging:
     dependency: transitive
     description:
@@ -652,7 +659,7 @@ packages:
     source: hosted
     version: "0.27.4"
   shared_preferences:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: shared_preferences
       url: "https://pub.dartlang.org"
