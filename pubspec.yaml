@@ -62,7 +62,7 @@ dev_dependencies:
     sdk: flutter
   injectable_generator: ^1.5.3
   json_serializable: ^6.2.0
-  retrofit_generator: ^4.0.1
+  retrofit_generator: ^4.0.2
   very_good_analysis: ^3.0.1
   # freezed: ^2.0.3+1
   build_runner: ^2.1.11
