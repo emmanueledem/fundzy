@@ -18,7 +18,8 @@ class _AuthApiClient implements AuthApiClient {
   String? baseUrl;
 
   @override
-  Future<HttpResponse<dynamic>> signUp() async {
+  Future<HttpResponse<dynamic>> signUp(
+      {required phoneNumber, required password}) async {
     const extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final headers = <String, dynamic>{};
@@ -34,7 +35,8 @@ class _AuthApiClient implements AuthApiClient {
   }
 
   @override
-  Future<HttpResponse<dynamic>> login() async {
+  Future<HttpResponse<dynamic>> login(
+      {required phoneNumber, required password}) async {
     const extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final headers = <String, dynamic>{};

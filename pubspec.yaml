@@ -8,7 +8,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
 # followed by an optional build number separated by a +.
-# Both the version and the builder number may be overridden in flutter
+# Both the version and the builder number may be overridden in flutter.
 # build by specifying --build-name and --build-number, respectively.
 # In Android, build-name is used as versionName while build-number used as versionCode.
 # Read more about Android versioning at https://developer.android.com/studio/publish/versioning
@@ -55,6 +55,7 @@ dependencies:
   shared_preferences: ^2.0.15
   injectable: ^1.5.3
   analyzer: ^3.0.0
+  dio_smart_retry: ^1.2.0
 
 
 dev_dependencies:
@@ -66,6 +67,8 @@ dev_dependencies:
   very_good_analysis: ^3.0.1
   # freezed: ^2.0.3+1
   build_runner: ^2.1.11
+  mockito: ^5.2.0
+
 
 
   # The "flutter_lints" package below contains a set of recommended lints to

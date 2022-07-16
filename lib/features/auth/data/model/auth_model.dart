@@ -1,18 +1,22 @@
-class Userauth {
-    Userauth({
-        this.status,
-        this.message,
-        this.data,
-    });
+// ignore_for_file: overridden_fields
 
-    String? status;
-    String? message;
-    AuthData? data;
+import 'package:fundzy/features/auth/auth.dart';
+
+class Userauth extends AuthEntity {
+const    Userauth({
+       required this.status,
+      required  this.message,
+      required  this.data, required created,
+    }) :super (message: message, status: status, data: data) ;
+
+  final  String? status;
+   final String? message;
+ final   AuthData? data;
 
     factory Userauth.fromJson(Map<String, dynamic> json) => Userauth(
         status: json["status"],
         message: json["message"],
-        data: AuthData.fromJson(json["data"]),
+        data: AuthData.fromJson(json["data"]), created: null,
     );
 
     Map<String, dynamic> toJson() => {
@@ -23,9 +27,9 @@ class Userauth {
 }
 
 class AuthData {
-    AuthData({
-        this.phoneNumber,
-        this.created,
+      AuthData({
+       required this.phoneNumber,
+   required     this.created,
     });
 
     String? phoneNumber;

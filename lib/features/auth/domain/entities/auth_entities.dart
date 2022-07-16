@@ -11,3 +11,4 @@ class AuthEntity extends Equatable {
   @override
   List<Object?> get props => [status, message, data];
 }
+  

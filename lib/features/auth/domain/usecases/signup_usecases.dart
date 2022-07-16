@@ -13,8 +13,8 @@ class SignUpUseCase extends UseCase<AuthEntity, SignUpParams> {
   late final AuthRepository authRepository;
 
   @override
-  Future<Either<Failure, AuthEntity>> call(SignUpParams params) {
-    return authRepository.signUp(
+  Future<Either<Failure, AuthEntity>> call(SignUpParams params) async {
+    return await authRepository.signUp(
         phoneNumber: params.phoneNumber, password: params.password);
   }
 }

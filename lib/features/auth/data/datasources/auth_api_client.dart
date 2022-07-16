@@ -12,12 +12,16 @@ abstract class AuthApiClient{
     }) = _AuthApiClient;
 
 
-  @POST("/auth/signup",)
-    Future<HttpResponse> signUp();
 
+  @POST("/auth/signup",)
+    Future<HttpResponse> signUp(
+     { required String phoneNumber, required String password}
+    );
 
 
   @POST("/auth/login",)
-    Future<HttpResponse> login();
+    Future<HttpResponse> login(
+      { required String phoneNumber, required String password}
+    );
 
 }
