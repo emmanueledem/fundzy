@@ -20,34 +20,34 @@ class _AuthApiClient implements AuthApiClient {
   @override
   Future<HttpResponse<dynamic>> signUp(
       {required phoneNumber, required password}) async {
-    const extra = <String, dynamic>{};
+    const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final headers = <String, dynamic>{};
-    final data = <String, dynamic>{};
-    final result = await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(
-        Options(method: 'POST', headers: headers, extra: extra)
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(
+        Options(method: 'POST', headers: _headers, extra: _extra)
             .compose(_dio.options, '/auth/signup',
-                queryParameters: queryParameters, data: data)
+                queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = result.data;
-    final httpResponse = HttpResponse(value, result);
+    final value = _result.data;
+    final httpResponse = HttpResponse(value, _result);
     return httpResponse;
   }
 
   @override
   Future<HttpResponse<dynamic>> login(
       {required phoneNumber, required password}) async {
-    const extra = <String, dynamic>{};
+    const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final headers = <String, dynamic>{};
-    final data = <String, dynamic>{};
-    final result = await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(
-        Options(method: 'POST', headers: headers, extra: extra)
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(
+        Options(method: 'POST', headers: _headers, extra: _extra)
             .compose(_dio.options, '/auth/login',
-                queryParameters: queryParameters, data: data)
+                queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = result.data;
-    final httpResponse = HttpResponse(value, result);
+    final value = _result.data;
+    final httpResponse = HttpResponse(value, _result);
     return httpResponse;
   }
 

@@ -34,7 +34,7 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
   final NetworkInfo networkInfo;
   final Dio dio;
   late final AuthApiClient client;
-
+  
   @override
   Future<Userauth> signUp(
       {required String phoneNumber, required String password}) async {
