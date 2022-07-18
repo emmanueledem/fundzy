@@ -123,13 +123,11 @@ class _SignInState extends State<SignIn> {
                       ],
                     ),
                     const Gap(109),
-                    GestureDetector(
-                      onTap: () {
+                    AppBusyButton(
+                      title: 'Sign in',
+                      onPress: () {
                         Navigator.pushNamed(context, RouteName.appTab);
                       },
-                      child: const AppBusyButton(
-                        title: 'Sign in',
-                      ),
                     ),
                     const Gap(16),
                   ],

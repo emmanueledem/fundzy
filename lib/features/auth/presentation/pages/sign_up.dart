@@ -1,9 +1,10 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:fundzy/app/app.dart';
 import 'package:fundzy/core/constant/constant.dart';
+import 'package:fundzy/core/core.dart';
 import 'package:gap/gap.dart';
+import 'package:logger/logger.dart';
 
 import '../widget/widget.dart';
 
@@ -18,13 +19,12 @@ class _SignUpState extends State<SignUp> {
   final TextEditingController _phoneNumberController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  final _phoneNumberFocus = FocusNode();
+  final _passwordFocus = FocusNode();
+
   late StreamController<String> phoneNumberStreamController;
   late StreamController<String> passwordStreamController;
   final ValueNotifier<bool> _canSubmit = ValueNotifier(false);
-
-  FocusNode focusNode = FocusNode();
-  String phoneNumberHintText = 'xx123344444';
-  String passwordHintText = '********';
 
   @override
   void initState() {
@@ -33,19 +33,31 @@ class _SignUpState extends State<SignUp> {
 
     _phoneNumberController.addListener(() {
       phoneNumberStreamController.sink.add(_phoneNumberController.text.trim());
+      validateInputs();
     });
 
-    focusNode.addListener(() {
-      if (focusNode.hasFocus) {
-        phoneNumberHintText = '';
-        passwordHintText = '';
-      } else {
-        phoneNumberHintText = 'xx123344444';
-        passwordHintText = '********';
-      }
-      setState(() {});
+    _passwordController.addListener(() {
+      passwordStreamController.sink.add(_passwordController.text.trim());
+      validateInputs();
     });
+
     super.initState();
+  }
+
+  void validateInputs() {
+    var canSumit = true;
+    final phoneNumberError = CustomFormValidation.errorMessagePhoneNumber(
+      _phoneNumberController.text.trim(),
+      'Phone Number is required',
+    );
+    final passwordError = CustomFormValidation.errorMessagePassword(
+      _passwordController.text.trim(),
+      'Password is required',
+    );
+    if (phoneNumberError != '' || passwordError != '') {
+      canSumit = false;
+    }
+    _canSubmit.value = canSumit;
   }
 
   @override
@@ -73,58 +85,58 @@ class _SignUpState extends State<SignUp> {
                     ),
                   ]),
                   const Gap(17),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Phone Number',
-                        style: TextStyle(
-                            color: Color(0xffBABABA),
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            fontFamily: AppFont.montserrat,
-                            fontStyle: FontStyle.normal),
-                      ),
-                      const Gap(16),
-                      TextFormField(
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black87,
-                            fontFamily: 'poppins',
-                            height: 1.3),
-                        decoration: kinputdecorationStyle.copyWith(
-                          hintText: phoneNumberHintText,
+                  StreamBuilder<String>(
+                    stream: phoneNumberStreamController.stream,
+                    builder: (context, snapshot) {
+                      return InputField(
+                        textInputType: TextInputType.text,
+                        controller: _phoneNumberController,
+                        placeholder: 'Enter PhoneNumber',
+                        label: 'Phone Number',
+                        fieldFocusNode: _phoneNumberFocus,
+                        validationMessage:
+                            CustomFormValidation.errorMessagePhoneNumber(
+                          snapshot.data,
+                          'Phone Number is required',
                         ),
-                      ),
-                    ],
+                        validationColor: CustomFormValidation.getColor(
+                          snapshot.data,
+                          _passwordFocus,
+                          CustomFormValidation.errorMessagePassword(
+                            snapshot.data,
+                            'Phone Number is required ',
+                          ),
+                        ),
+                      );
+                    },
                   ),
                   const Gap(24),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Password',
-                        style: TextStyle(
-                            color: Color(0xffBABABA),
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            fontFamily: AppFont.montserrat,
-                            fontStyle: FontStyle.normal),
-                      ),
-                      const Gap(16),
-                      TextFormField(
-                        obscureText: true,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black87,
-                            fontFamily: 'poppins',
-                            height: 1.3),
-                        decoration: kinputdecorationStyle.copyWith(
-                          hintText: passwordHintText,
-                          suffixIcon: const Icon(Icons.remove_red_eye_sharp),
+                  StreamBuilder<String>(
+                    stream: passwordStreamController.stream,
+                    builder: (context, snapshot) {
+                      return InputField(
+                        textInputType: TextInputType.text,
+                        controller: _passwordController,
+                        placeholder: 'Enter Password',
+                        label: 'Password',
+                        password: true,
+                        fieldFocusNode: _passwordFocus,
+                        suffix: true,
+                        validationMessage:
+                            CustomFormValidation.errorMessagePassword(
+                          snapshot.data,
+                          'Password is required',
                         ),
-                      )
-                    ],
+                        validationColor: CustomFormValidation.getColor(
+                          snapshot.data,
+                          _passwordFocus,
+                          CustomFormValidation.errorMessagePassword(
+                            snapshot.data,
+                            'Password is required ',
+                          ),
+                        ),
+                      );
+                    },
                   ),
                   const Gap(24),
                   Row(
@@ -140,14 +152,19 @@ class _SignUpState extends State<SignUp> {
                     ],
                   ),
                   const Gap(109),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, RouteName.signUp);
-                    },
-                    child: const AppBusyButton(
-                      title: 'Sign in',
-                    ),
-                  ),
+                  ValueListenableBuilder<bool>(
+                      valueListenable: _canSubmit,
+                      builder: (context, canSubmit, child) {
+                        return AppBusyButton(
+                          title: 'Sign Up',
+                          disabled: !canSubmit,
+                          onPress: () async {
+                            !canSubmit
+                                ? validateInputs()
+                                : Logger().d('Passed');
+                          },
+                        );
+                      }),
                   const Gap(16),
                 ],
               ),

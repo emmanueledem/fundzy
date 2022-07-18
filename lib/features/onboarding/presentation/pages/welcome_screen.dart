@@ -34,19 +34,16 @@ class WelcomeScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 30),
               child: Column(
                 children: [
-                  GestureDetector(
-                    onTap: () {
+                  AppBusyButton(
+                    title: 'Sign in',
+                    onPress: () {
                       Navigator.pushNamed(context, RouteName.signIn);
                     },
-                    child: const AppBusyButton(
-                      title: 'Sign in',
-                    ),
                   ),
                   const Gap(16),
                   GestureDetector(
                     onTap: () {
                       Navigator.pushNamed(context, RouteName.signUp);
-                      
                     },
                     child: Container(
                       height: 72,

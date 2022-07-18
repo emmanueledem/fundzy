@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fundzy/core/constant/colors.dart';
+import 'package:injectable/injectable.dart';
 
-
+@lazySingleton
 class CustomFormValidation {
   static Color getColor(
     String? text,
@@ -60,7 +61,7 @@ class CustomFormValidation {
     }
   }
 
-  static String errorMessageSPC(
+  static String errorMessagePhoneNumber(
     String? text,
     String message,
   ) {
@@ -69,22 +70,7 @@ class CustomFormValidation {
     } else if (text.isEmpty) {
       return message;
     } else if (text.length <= 10) {
-      return 'Invalid POS Owner ID';
-    } else {
-      return '';
-    }
-  }
-
-  static String errorMessageRRR(
-    String? text,
-    String message,
-  ) {
-    if (text == null) {
-      return '';
-    } else if (text.isEmpty) {
-      return message;
-    } else if (text.length != 12) {
-      return 'Invalid RRR';
+      return 'Invalid PhoneNumber';
     } else {
       return '';
     }
