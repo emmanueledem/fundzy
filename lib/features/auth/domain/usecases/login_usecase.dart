@@ -7,14 +7,14 @@ import 'package:fundzy/features/auth/domain/repositories/auth_repository.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
-class LoginUseCase extends UseCase<AuthEntity, LoginParams> {
+class LoginUseCase extends UseCase<LoginEntity, LoginParams> {
   LoginUseCase({required this.authRepository});
 
   late final AuthRepository authRepository;
 
   @override
-  Future<Either<Failure, AuthEntity>> call(LoginParams params) async {
-    return await   authRepository.signUp(
+  Future<Either<Failure, LoginEntity>> call(LoginParams params) async {
+    return await   authRepository.login(
         phoneNumber: params.phoneNumber, password: params.password);
   }
 }

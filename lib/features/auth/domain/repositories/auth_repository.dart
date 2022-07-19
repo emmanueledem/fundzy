@@ -4,7 +4,7 @@ import 'package:fundzy/features/auth/domain/domain.dart';
 
 
 abstract class AuthRepository{
-  Future<Either<Failure, AuthEntity>>  login({
+  Future<Either<Failure, LoginEntity>>  login({
     required String phoneNumber,
     required String password,
    });

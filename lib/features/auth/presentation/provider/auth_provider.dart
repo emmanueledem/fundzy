@@ -5,6 +5,8 @@ import 'package:fundzy/app/app.dart';
 import 'package:fundzy/core/core.dart';
 import 'package:fundzy/features/auth/auth.dart';
 import 'package:injectable/injectable.dart';
+import 'package:logger/logger.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 @lazySingleton
 class AuthProvider extends ChangeNotifier {
@@ -13,6 +15,7 @@ class AuthProvider extends ChangeNotifier {
   final SignUpUseCase signUpUseCase;
   final LoginUseCase loginUseCase;
   AuthEntity? authEntity;
+  LoginEntity? loginEntity;
 
   Future<bool> signUp(
     BuildContext context, {
@@ -36,6 +39,7 @@ class AuthProvider extends ChangeNotifier {
         authEntity = r;
         FlushBarNotification.showSuccessMessage(
             context: context, message: r.message.toString());
+
         notifyListeners();
         return true;
       },
@@ -48,18 +52,21 @@ class AuthProvider extends ChangeNotifier {
     required String password,
   }) async {
     final navigator = Navigator.of(context);
+    unawaited(AppPopups.showLoader(context));
     final result = await loginUseCase(
         LoginParams(phoneNumber: phoneNumber, password: password));
     navigator.pop();
     return result.fold((l) {
-      authEntity = null;
+      loginEntity = null;
       FlushBarNotification.showErrorMessage(
         context: context,
         message: FailureToMessage.mapFailureToMessage(l),
       );
       return false;
     }, (r) async {
-      authEntity = r;
+      loginEntity = r;
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('token', r.data!.token.toString());
       notifyListeners();
       return true;
     });

@@ -8,7 +8,7 @@ import 'package:logger/logger.dart';
 import '../../auth.dart';
 
 abstract class AuthRemoteDataSource {
-  Future<Userauth> login(
+  Future<LoginModel> login(
       {required String phoneNumber, required String password});
 
   Future<Userauth> signUp(
@@ -53,14 +53,14 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
   }
 
   @override
-  Future<Userauth> login(
+  Future<LoginModel> login(
       {required String phoneNumber, required String password}) async {
     if (await networkInfo.isConnected) {
       final response =
           await client.login(phoneNumber: phoneNumber, password: password);
-      return Userauth.fromJson(
-        response.response.data as Map<String, dynamic>,
-      );
+      Logger().d(response.response.data);
+
+      return LoginModel.fromJson(response.response.data as Map<String, dynamic>, );
     } else {
       throw NoInternetException();
     }

@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:fundzy/app/app.dart';
 import 'package:fundzy/core/constant/constant.dart';
 import 'package:fundzy/core/core.dart';
+import 'package:fundzy/features/auth/presentation/provider/auth_provider.dart';
 import 'package:gap/gap.dart';
 import 'package:logger/logger.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../widget/widget.dart';
+import 'package:fundzy/injections.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -157,7 +160,16 @@ class _SignInState extends State<SignIn> {
                           title: 'Sign In',
                           disabled: !canSubmit,
                           onPress: () async {
-                            Logger().d('Passed');
+                            final res = await sl<AuthProvider>().login(context,
+                                phoneNumber: _phoneNumberController.text.trim(),
+                                password: _passwordController.text.trim());
+                            if (res) {
+                              // ignore: use_build_context_synchronously
+                              Navigator.of(context).pushNamedAndRemoveUntil(
+                                RouteName.appTab,
+                                (route) => false,
+                              );
+                            }
                           },
                         );
                       }),

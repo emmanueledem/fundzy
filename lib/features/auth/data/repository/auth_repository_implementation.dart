@@ -9,11 +9,9 @@ import 'package:logger/logger.dart';
 @LazySingleton(as: AuthRepository)
 class AuthRepositpryImpl implements AuthRepository {
   AuthRepositpryImpl(this.authRemoteDataSource);
-
   final AuthRemoteDataSource authRemoteDataSource;
-
   @override
-  Future<Either<Failure, Userauth>> login(
+  Future<Either<Failure, LoginModel>> login(
       {required String phoneNumber, required String password}) async {
     try {
       final response = await authRemoteDataSource.login(

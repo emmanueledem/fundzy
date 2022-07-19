@@ -6,9 +6,20 @@ class AuthEntity extends Equatable {
   final String? message;
   final AuthData? data;
 
-  const AuthEntity({required this.status, required this.message, required this.data});
+  const AuthEntity(
+      {required this.status, required this.message, required this.data});
 
   @override
   List<Object?> get props => [status, message, data];
 }
-  
+
+class LoginEntity extends Equatable {
+  final String? status;
+  final String? message;
+  final LoginData? data;
+
+  const LoginEntity({required this.status, required this.message, required this.data});
+
+  @override
+  List<Object?> get props => [status, message, data];
+}
