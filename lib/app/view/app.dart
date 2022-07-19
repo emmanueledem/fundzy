@@ -15,7 +15,6 @@ class App extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => sl<AuthProvider>(),
         ),
-        
       ],
       child: MaterialApp(
         useInheritedMediaQuery: true,

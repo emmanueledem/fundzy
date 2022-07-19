@@ -1,7 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:fundzy/app/app.dart';
 import 'package:fundzy/core/constant/constant.dart';
+import 'package:fundzy/core/core.dart';
 import 'package:fundzy/features/home/presentation/presentation.dart';
 import 'package:gap/gap.dart';
+import 'package:fundzy/injections.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -36,8 +41,38 @@ class _HomeScreenState extends State<HomeScreen> {
                             padding: const EdgeInsets.only(top: 24, right: 30),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.end,
-                              children: const [
-                                Image(image: AssetImage(AppAsset.prrofileImage))
+                              children: [
+                                const Image(
+                                    image: AssetImage(AppAsset.prrofileImage)),
+                                GestureDetector(
+                                  onTap: () async {
+                                    unawaited(AppPopups.showLoader(context));
+                                    var res = await sl<LocalDataStorage>()
+                                        .clearToken();
+                                    if (res) {
+                                      // ignore: use_build_context_synchronously
+                                      Future.delayed(const Duration(seconds: 3),
+                                          () {
+                                        Navigator.of(context)
+                                            .pushNamedAndRemoveUntil(
+                                          RouteName.welcome,
+                                          (route) => false,
+                                        );
+                                      });
+                                    }
+                                  },
+                                  child: Container(
+                                    height: 40,
+                                    width: 40,
+                                    decoration: BoxDecoration(
+                                        color: AppColors.white,
+                                        borderRadius: BorderRadius.circular(7)),
+                                    child: const Icon(
+                                      Icons.logout_sharp,
+                                      color: AppColors.primaryColor,
+                                    ),
+                                  ),
+                                )
                               ],
                             ),
                           ),

@@ -5,8 +5,6 @@ import 'package:fundzy/core/constant/constant.dart';
 import 'package:fundzy/core/core.dart';
 import 'package:fundzy/features/auth/presentation/provider/auth_provider.dart';
 import 'package:gap/gap.dart';
-import 'package:logger/logger.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../widget/widget.dart';
 import 'package:fundzy/injections.dart';
 

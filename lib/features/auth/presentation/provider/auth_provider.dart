@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:fundzy/app/app.dart';
 import 'package:fundzy/core/core.dart';
+import 'package:fundzy/core/local_data_storage/local_data.dart';
 import 'package:fundzy/features/auth/auth.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
@@ -65,8 +66,8 @@ class AuthProvider extends ChangeNotifier {
       return false;
     }, (r) async {
       loginEntity = r;
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setString('token', r.data!.token.toString());
+      // final prefs = await SharedPreferences.getInstance();
+      // await prefs.setString('token', r.data!.token.toString());
       notifyListeners();
       return true;
     });

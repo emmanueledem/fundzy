@@ -35,6 +35,7 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
 
   final NetworkInfo networkInfo;
   final Dio dio;
+  final LocalDataStorage _localDataStorage = LocalDataStorageImpl();
   late final AuthApiClient client;
 
   @override
@@ -43,7 +44,7 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
     if (await networkInfo.isConnected) {
       final response =
           await client.signUp(phoneNumber: phoneNumber, password: password);
-      Logger().d(response.response.data);
+      Logger().d(response.response);
       return Userauth.fromJson(
         response.response.data as Map<String, dynamic>,
       );
@@ -58,9 +59,12 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
     if (await networkInfo.isConnected) {
       final response =
           await client.login(phoneNumber: phoneNumber, password: password);
-      Logger().d(response.response.data);
-
-      return LoginModel.fromJson(response.response.data as Map<String, dynamic>, );
+      await _localDataStorage
+          .saveToken(response.response.data["data"]["token"]);
+      Logger().d(response.response.data["data"]["token"]);
+      return LoginModel.fromJson(
+        response.response.data as Map<String, dynamic>,
+      );
     } else {
       throw NoInternetException();
     }
