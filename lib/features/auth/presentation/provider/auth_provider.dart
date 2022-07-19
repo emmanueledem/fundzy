@@ -5,7 +5,6 @@ import 'package:fundzy/app/app.dart';
 import 'package:fundzy/core/core.dart';
 import 'package:fundzy/features/auth/auth.dart';
 import 'package:injectable/injectable.dart';
-import 'package:logger/logger.dart';
 
 @lazySingleton
 class AuthProvider extends ChangeNotifier {
