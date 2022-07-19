@@ -4,8 +4,6 @@
 // InjectableConfigGenerator
 // **************************************************************************
 
-// ignore_for_file: no_leading_underscores_for_library_prefixes
-
 import 'package:dio/dio.dart' as _i9;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
@@ -17,13 +15,14 @@ import 'app/view/widgets/app_popup_loader.dart' as _i3;
 import 'core/network/network_info.dart' as _i12;
 import 'core/utils/custom_form_validation.dart' as _i8;
 import 'features/auth/auth.dart' as _i5;
+import 'features/auth/data/datasources/auth_remote_data_sources.dart' as _i15;
 import 'features/auth/data/repository/auth_repository_implementation.dart'
     as _i7;
 import 'features/auth/domain/repositories/auth_repository.dart' as _i6;
 import 'features/auth/domain/usecases/login_usecase.dart' as _i11;
 import 'features/auth/domain/usecases/signup_usecases.dart' as _i14;
 import 'features/auth/presentation/provider/auth_provider.dart' as _i4;
-import 'register_module.dart' as _i15; // ignore_for_file: unnecessary_lambdas
+import 'register_module.dart' as _i16; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -48,7 +47,10 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   gh.factoryAsync<_i13.SharedPreferences>(() => registerModule.prefs);
   gh.lazySingleton<_i14.SignUpUseCase>(
       () => _i14.SignUpUseCase(authRepository: get<_i6.AuthRepository>()));
+  gh.lazySingleton<_i15.AuthRemoteDataSource>(() =>
+      _i15.AuthRemoteDataSourceImpl(
+          networkInfo: get<_i12.NetworkInfo>(), dio: get<_i9.Dio>()));
   return get;
 }
 
-class _$RegisterModule extends _i15.RegisterModule {}
+class _$RegisterModule extends _i16.RegisterModule {}

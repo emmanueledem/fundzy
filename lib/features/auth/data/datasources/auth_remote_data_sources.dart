@@ -3,6 +3,7 @@ import 'package:dio_smart_retry/dio_smart_retry.dart';
 import 'package:fundzy/core/core.dart';
 import 'package:fundzy/core/network/network_info.dart';
 import 'package:fundzy/features/auth/data/datasources/auth_api_client.dart';
+import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 import '../../auth.dart';
 
@@ -14,6 +15,7 @@ abstract class AuthRemoteDataSource {
       {required String phoneNumber, required String password});
 }
 
+@LazySingleton(as: AuthRemoteDataSource)
 class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
   AuthRemoteDataSourceImpl({required this.networkInfo, required this.dio})
       : super() {
@@ -34,7 +36,7 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
   final NetworkInfo networkInfo;
   final Dio dio;
   late final AuthApiClient client;
-  
+
   @override
   Future<Userauth> signUp(
       {required String phoneNumber, required String password}) async {

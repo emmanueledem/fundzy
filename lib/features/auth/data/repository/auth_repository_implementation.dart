@@ -51,14 +51,13 @@ class AuthRepositpryImpl implements AuthRepository {
   }
 
   @override
-  Future<Either<Failure, AuthEntity>> signUp(
+  Future<Either<Failure, Userauth>> signUp(
       {required String phoneNumber, required String password}) async {
     try {
       final response = await authRemoteDataSource.signUp(
           phoneNumber: phoneNumber, password: password);
       return Right(response);
     } catch (e) {
-      Logger().e(e);
       if (e is NoInternetException) {
         return Left(NoInternetFailure());
       }

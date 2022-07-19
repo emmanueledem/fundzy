@@ -6,7 +6,7 @@ import 'package:fundzy/features/auth/auth.dart';
 import 'package:fundzy/features/auth/domain/repositories/auth_repository.dart';
 import 'package:injectable/injectable.dart';
 
-@LazySingleton()
+@lazySingleton
 class LoginUseCase extends UseCase<AuthEntity, LoginParams> {
   LoginUseCase({required this.authRepository});
 

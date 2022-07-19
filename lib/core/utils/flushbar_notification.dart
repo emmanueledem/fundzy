@@ -7,7 +7,7 @@ class FlushBarNotification {
     required BuildContext context,
     required String message,
     Duration duration = const Duration(
-      seconds: 4,
+      seconds: 5,
     ),
   }) {
     return Flushbar(
@@ -43,7 +43,7 @@ class FlushBarNotification {
     required BuildContext context,
     required String message,
     Duration duration = const Duration(
-      seconds: 4,
+      seconds: 5,
     ),
   }) {
     /*return FlushbarHelper.createSuccess(

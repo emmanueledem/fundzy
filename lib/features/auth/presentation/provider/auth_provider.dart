@@ -1,7 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
+import 'package:fundzy/app/app.dart';
 import 'package:fundzy/core/core.dart';
 import 'package:fundzy/features/auth/auth.dart';
 import 'package:injectable/injectable.dart';
+import 'package:logger/logger.dart';
 
 @lazySingleton
 class AuthProvider extends ChangeNotifier {
@@ -11,30 +15,35 @@ class AuthProvider extends ChangeNotifier {
   final LoginUseCase loginUseCase;
   AuthEntity? authEntity;
 
-  Future<void> signUp(
+  Future<bool> signUp(
     BuildContext context, {
     required String phoneNumber,
     required String password,
   }) async {
     final navigator = Navigator.of(context);
+    unawaited(AppPopups.showLoader(context));
     final result = await signUpUseCase(
         SignUpParams(phoneNumber: phoneNumber, password: password));
     navigator.pop();
-    result.fold(
+    return result.fold(
       (l) {
         FlushBarNotification.showErrorMessage(
           context: context,
           message: FailureToMessage.mapFailureToMessage(l),
         );
+        return false;
       },
       (r) async {
         authEntity = r;
+        FlushBarNotification.showSuccessMessage(
+            context: context, message: r.message.toString());
         notifyListeners();
+        return true;
       },
     );
   }
 
-  Future<void> login(
+  Future<bool> login(
     BuildContext context, {
     required String phoneNumber,
     required String password,
@@ -43,14 +52,17 @@ class AuthProvider extends ChangeNotifier {
     final result = await loginUseCase(
         LoginParams(phoneNumber: phoneNumber, password: password));
     navigator.pop();
-    result.fold((l) {
+    return result.fold((l) {
+      authEntity = null;
       FlushBarNotification.showErrorMessage(
         context: context,
         message: FailureToMessage.mapFailureToMessage(l),
       );
+      return false;
     }, (r) async {
       authEntity = r;
       notifyListeners();
+      return true;
     });
   }
 }

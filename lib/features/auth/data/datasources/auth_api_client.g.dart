@@ -1,7 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: no_leading_underscores_for_local_identifiers
-
 part of 'auth_api_client.dart';
 
 // **************************************************************************
@@ -12,7 +10,7 @@ part of 'auth_api_client.dart';
 
 class _AuthApiClient implements AuthApiClient {
   _AuthApiClient(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'https://bank.veegil.com/';
+    baseUrl ??= 'https://bank.veegil.com';
   }
 
   final Dio _dio;
@@ -25,9 +23,13 @@ class _AuthApiClient implements AuthApiClient {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    final _data = {'phoneNumber': phoneNumber, 'password': password};
     final _result = await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(
-        Options(method: 'POST', headers: _headers, extra: _extra)
+        Options(
+                method: 'POST',
+                headers: _headers,
+                extra: _extra,
+                contentType: 'application/x-www-form-urlencoded')
             .compose(_dio.options, '/auth/signup',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
@@ -42,9 +44,13 @@ class _AuthApiClient implements AuthApiClient {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    final _data = {'phoneNumber': phoneNumber, 'password': password};
     final _result = await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(
-        Options(method: 'POST', headers: _headers, extra: _extra)
+        Options(
+                method: 'POST',
+                headers: _headers,
+                extra: _extra,
+                contentType: 'application/x-www-form-urlencoded')
             .compose(_dio.options, '/auth/login',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));

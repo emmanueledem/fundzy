@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:fundzy/app/app.dart';
 import 'package:fundzy/core/constant/constant.dart';
 import 'package:fundzy/core/core.dart';
+import 'package:fundzy/features/auth/presentation/provider/auth_provider.dart';
+import 'package:fundzy/injections.dart';
 import 'package:gap/gap.dart';
-import 'package:logger/logger.dart';
 
 import '../widget/widget.dart';
 
@@ -101,7 +102,7 @@ class _SignUpState extends State<SignUp> {
                         ),
                         validationColor: CustomFormValidation.getColor(
                           snapshot.data,
-                          _passwordFocus,
+                          _phoneNumberFocus,
                           CustomFormValidation.errorMessagePassword(
                             snapshot.data,
                             'Phone Number is required ',
@@ -148,7 +149,7 @@ class _SignUpState extends State<SignUp> {
                             fontFamily: AppFont.montserrat,
                             fontWeight: FontWeight.w400,
                             color: AppColors.primaryColor),
-                      )
+                      ),
                     ],
                   ),
                   const Gap(109),
@@ -159,9 +160,21 @@ class _SignUpState extends State<SignUp> {
                           title: 'Sign Up',
                           disabled: !canSubmit,
                           onPress: () async {
-                            !canSubmit
-                                ? validateInputs()
-                                : Logger().d('Passed');
+                            final res = await sl<AuthProvider>().signUp(
+                              context,
+                              phoneNumber: _phoneNumberController.text.trim(),
+                              password: _passwordController.text.trim(),
+                            );
+                            if (res) {
+                              // ignore: use_build_context_synchronously
+                              Future.delayed(const Duration(seconds: 4), () {
+                                Navigator.of(context).pushReplacementNamed(
+                                  RouteName.signIn,
+                                );
+                                // _phoneNumberController.clear();
+                                // _passwordController.clear();
+                              });
+                            }
                           },
                         );
                       }),
