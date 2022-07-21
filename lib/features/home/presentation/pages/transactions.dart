@@ -47,7 +47,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
         title: const Text(
           'Transactions',
           style: TextStyle(
-            fontFamily: AppFont.montserrat,
+            fontFamily: AppFont.montserratBold,
             fontWeight: FontWeight.w500,
             color: Color.fromARGB(255, 12, 8, 8),
             fontSize: 20,

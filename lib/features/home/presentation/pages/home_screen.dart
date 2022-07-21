@@ -167,7 +167,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   const Gap(22),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.pushNamed(context, RouteName.withdraw);
+                    },
                     child: const ActionContainers(
                       text: 'Withdraw',
                       icon: AppAsset.witdraw,

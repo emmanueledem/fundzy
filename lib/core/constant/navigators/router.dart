@@ -46,6 +46,17 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         viewToShow: const TransferSucess(),
       );
 
+    case RouteName.withdraw:
+      return _getPageRoute(
+        routeName: settings.name!,
+        viewToShow: const WithdrawScreen(),
+      );
+
+ case RouteName.withdrawSucess:
+      return _getPageRoute(
+        routeName: settings.name!,
+        viewToShow: const WithdrawSuccess(),
+      );
     // case RouteName.readNews:
     //   // ignore: cast_nullable_to_non_nullable
     //   final args = settings.arguments as ReadNewsScreenParams;

@@ -1,18 +1,19 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:fundzy/app/app.dart';
 import 'package:fundzy/core/constant/constant.dart';
 import 'package:fundzy/core/core.dart';
 import 'package:gap/gap.dart';
 
-class TransferScreen extends StatefulWidget {
-  const TransferScreen({Key? key}) : super(key: key);
+class WithdrawScreen extends StatefulWidget {
+  const WithdrawScreen({Key? key}) : super(key: key);
 
   @override
-  State<TransferScreen> createState() => _TransferScreenState();
+  State<WithdrawScreen> createState() => _WithdrawScreenState();
 }
 
-class _TransferScreenState extends State<TransferScreen> {
+class _WithdrawScreenState extends State<WithdrawScreen> {
   final TextEditingController _phoneNumberController = TextEditingController();
   final TextEditingController _amountController = TextEditingController();
 
@@ -62,7 +63,7 @@ class _TransferScreenState extends State<TransferScreen> {
       appBar: AppBar(
         centerTitle: true,
         title: const Text(
-          'Transfer',
+          'Withdraw',
           style: TextStyle(
             fontFamily: AppFont.montserratBold,
             fontWeight: FontWeight.w500,
@@ -135,7 +136,7 @@ class _TransferScreenState extends State<TransferScreen> {
                 valueListenable: _canSubmit,
                 builder: (context, canSubmit, child) {
                   return AppBusyButton(
-                    title: 'Transfer',
+                    title: 'Withdraw',
                     disabled: !canSubmit,
                     onPress: () async {},
                   );
