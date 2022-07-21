@@ -3,11 +3,8 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:fundzy/app/app.dart';
 import 'package:fundzy/core/core.dart';
-import 'package:fundzy/core/local_data_storage/local_data.dart';
 import 'package:fundzy/features/auth/auth.dart';
 import 'package:injectable/injectable.dart';
-import 'package:logger/logger.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 @lazySingleton
 class AuthProvider extends ChangeNotifier {

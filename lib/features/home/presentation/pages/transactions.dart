@@ -1,5 +1,11 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:fundzy/app/app.dart';
 import 'package:fundzy/core/constant/constant.dart';
+import 'package:fundzy/core/core.dart';
+import 'package:fundzy/features/home/presentation/presentation.dart';
+import 'package:fundzy/injections.dart';
+import 'package:provider/provider.dart';
 
 class TransactionScreen extends StatefulWidget {
   const TransactionScreen({Key? key}) : super(key: key);
@@ -9,6 +15,24 @@ class TransactionScreen extends StatefulWidget {
 }
 
 class _TransactionScreenState extends State<TransactionScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration.zero, () {
+      transactionActivity();
+    });
+  }
+
+  Future<void> transactionActivity() async {
+    await sl<TransactionProvider>().transactionHandler(context);
+  }
+
+  Future<void> refreshList() async {
+    Future.delayed(Duration.zero, () async {
+      await sl<TransactionProvider>().transactionHandler(context);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,21 +50,54 @@ class _TransactionScreenState extends State<TransactionScreen> {
           ),
         ),
       ),
-      body: ListView(
-        children: const <Widget>[
-          Card(
-            child: ListTile(
-              title: Text('PhoneNumber: 0987'),
-              subtitle:
-                  Text('Amount: 200000, \n\n Date: 2022-07-07T23:09:14.670Z'),
-              trailing: CircleAvatar(
-                radius: 4,
-                backgroundColor: Colors.green,
-              ),
-              isThreeLine: true,
-            ),
-          ),
-        ],
+      body: RefreshIndicator(
+        onRefresh: refreshList,
+        color: AppColors.primaryColor,
+        child: Consumer<TransactionProvider>(
+            builder: (context, transactionProvider, child) {
+          return transactionProvider.isComplete == false
+              ? const Text('')
+              : transactionProvider.transactionEntity!.isEmpty
+                  ? Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Align(
+                          child:
+                              NoDataWidget(text: 'Error occurred. Try again!'),
+                        )
+                      ],
+                    )
+                  : transactionProvider.transactionEntity!.isEmpty
+                      ? const NoDataWidget(text: "No Transaction")
+                      : ListView.builder(
+                          itemCount:
+                              transactionProvider.transactionEntity!.length,
+                          physics: const BouncingScrollPhysics(),
+                          itemBuilder: (BuildContext context, int index) {
+                            var item =
+                                transactionProvider.transactionEntity![index];
+                            dynamic initialAmount;
+                            item.amount != null
+                                ? initialAmount = item.amount!.toDouble()
+                                : initialAmount = double.parse('0.00');
+                            var finalAmount =
+                                AmountUtil.formatAmount(initialAmount);
+                            return Card(
+                              child: ListTile(
+                                title: Text('PhoneNumber: ${item.phoneNumber}'),
+                                subtitle: Text(
+                                    'Amount: $finalAmount , \n\n Date: ${item.created}'),
+                                trailing: CircleAvatar(
+                                    radius: 4,
+                                    backgroundColor: item.type == 'credit'
+                                        ? Colors.green
+                                        : Colors.red),
+                                isThreeLine: true,
+                              ),
+                            );
+                          },
+                        );
+        }),
       ),
     );
   }
