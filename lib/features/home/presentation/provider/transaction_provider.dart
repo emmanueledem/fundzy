@@ -15,11 +15,15 @@ class TransactionProvider extends ChangeNotifier {
   List<TransactionEntity>? transactionEntity;
   bool? isComplete = false;
 
-  Future<void> transactionHandler(BuildContext context) async {
+  Future<void> transactionHandler(BuildContext context, loader) async {
     final navigator = Navigator.of(context);
-    unawaited(AppPopups.showLoader(context));
+    if (!loader) {
+      unawaited(AppPopups.showLoader(context));
+    }
     final result = await transactionUseCase(NoParams());
-    navigator.pop();
+    if (!loader) {
+      navigator.pop();
+    }
     result.fold(
       (l) {
         FlushBarNotification.showErrorMessage(

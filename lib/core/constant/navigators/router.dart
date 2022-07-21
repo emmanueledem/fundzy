@@ -34,6 +34,18 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         viewToShow: const AppTabScreen(),
       );
 
+         case RouteName.transfer:
+      return _getPageRoute(
+        routeName: settings.name!,
+        viewToShow: const TransferScreen(),
+      );
+
+         case RouteName.transferSuccess:
+      return _getPageRoute(
+        routeName: settings.name!,
+        viewToShow: const TransferSucess(),
+      );
+
     // case RouteName.readNews:
     //   // ignore: cast_nullable_to_non_nullable
     //   final args = settings.arguments as ReadNewsScreenParams;

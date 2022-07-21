@@ -38,11 +38,13 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Column(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(top: 24, right: 30),
+                            padding: const EdgeInsets.only(top: 23, right: 30),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 const Image(
+                                    height: 65,
+                                    width: 65,
                                     image: AssetImage(AppAsset.prrofileImage)),
                                 GestureDetector(
                                   onTap: () async {
@@ -66,7 +68,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     width: 40,
                                     decoration: BoxDecoration(
                                         color: AppColors.white,
-                                        borderRadius: BorderRadius.circular(7)),
+                                        borderRadius:
+                                            BorderRadius.circular(13)),
                                     child: const Icon(
                                       Icons.logout_sharp,
                                       color: AppColors.primaryColor,
@@ -153,7 +156,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.pushNamed(context, RouteName.transfer);
+                    },
                     child: const ActionContainers(
                       text: 'Transfer',
                       icon: AppAsset.tranferLogo,

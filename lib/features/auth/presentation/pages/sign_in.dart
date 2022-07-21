@@ -16,6 +16,7 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
+  
   final TextEditingController _phoneNumberController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -100,8 +101,8 @@ class _SignInState extends State<SignIn> {
                         ),
                         validationColor: CustomFormValidation.getColor(
                           snapshot.data,
-                          _passwordFocus,
-                          CustomFormValidation.errorMessagePassword(
+                          _phoneNumberFocus,
+                          CustomFormValidation.errorMessagePhoneNumber(
                             snapshot.data,
                             'Phone Number is required ',
                           ),
@@ -150,7 +151,7 @@ class _SignInState extends State<SignIn> {
                       )
                     ],
                   ),
-                  const Gap(109),  
+                  const Gap(109),
                   ValueListenableBuilder<bool>(
                       valueListenable: _canSubmit,
                       builder: (context, canSubmit, child) {
@@ -158,17 +159,15 @@ class _SignInState extends State<SignIn> {
                           title: 'Sign In',
                           disabled: !canSubmit,
                           onPress: () async {
+                            var navigator = Navigator.of(context);
                             final res = await sl<AuthProvider>().login(context,
                                 phoneNumber: _phoneNumberController.text.trim(),
                                 password: _passwordController.text.trim());
                             if (res) {
-                              // ignore: use_build_context_synchronously
-                              
-                              Navigator.of(context).pushNamedAndRemoveUntil(
+                              navigator.pushNamedAndRemoveUntil(
                                 RouteName.appTab,
                                 (route) => false,
                               );
-
                             }
                           },
                         );

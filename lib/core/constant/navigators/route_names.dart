@@ -6,4 +6,5 @@ class RouteName {
   static const String appTab = '/appTab';
   static const String withdraw = '/withDraw';
   static const String transfer = '/transfer';
+  static const String transferSuccess = '/transferSuccess';
 }

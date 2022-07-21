@@ -61,6 +61,19 @@ class CustomFormValidation {
     }
   }
 
+  static String errorMessageAmount(
+    String? text,
+    String message,
+  ) {
+    if (text == null) {
+      return '';
+    } else if (text.isEmpty) {
+      return message;
+    } else {
+      return '';
+    }
+  }
+
   static String errorMessagePhoneNumber(
     String? text,
     String message,

@@ -24,12 +24,16 @@ class _TransactionScreenState extends State<TransactionScreen> {
   }
 
   Future<void> transactionActivity() async {
-    await sl<TransactionProvider>().transactionHandler(context);
+    var loader =
+        sl<TransactionProvider>().transactionEntity?.isNotEmpty == true;
+    await sl<TransactionProvider>().transactionHandler(context, loader);
   }
 
   Future<void> refreshList() async {
     Future.delayed(Duration.zero, () async {
-      await sl<TransactionProvider>().transactionHandler(context);
+      var loader =
+          sl<TransactionProvider>().transactionEntity?.isNotEmpty == true;
+      await sl<TransactionProvider>().transactionHandler(context, loader);
     });
   }
 
@@ -51,7 +55,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
         ),
       ),
       body: RefreshIndicator(
-        onRefresh: refreshList,
+        onRefresh: () => refreshList(),
         color: AppColors.primaryColor,
         child: Consumer<TransactionProvider>(
             builder: (context, transactionProvider, child) {
@@ -82,11 +86,13 @@ class _TransactionScreenState extends State<TransactionScreen> {
                                 : initialAmount = double.parse('0.00');
                             var finalAmount =
                                 AmountUtil.formatAmount(initialAmount);
+                            var created =
+                                DateUtil.formatDate(item.created as DateTime);
                             return Card(
                               child: ListTile(
                                 title: Text('PhoneNumber: ${item.phoneNumber}'),
                                 subtitle: Text(
-                                    'Amount: $finalAmount , \n\n Date: ${item.created}'),
+                                    'Amount: $finalAmount , \n\n Date: $created'),
                                 trailing: CircleAvatar(
                                     radius: 4,
                                     backgroundColor: item.type == 'credit'
