@@ -71,6 +71,7 @@ dev_dependencies:
   # freezed: ^2.0.3+1
   build_runner: ^2.1.11
   mockito: ^5.2.0
+  source_gen: ^1.2.2
 
 
 

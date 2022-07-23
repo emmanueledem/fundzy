@@ -107,30 +107,30 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
               },
             ),
             const Gap(20),
-            StreamBuilder<String>(
-              stream: amountStreamController.stream,
-              builder: (context, snapshot) {
-                return InputField(
-                  textInputType: TextInputType.text,
-                  controller: _amountController,
-                  placeholder: 'Enter Amount',
-                  label: 'Amount',
-                  fieldFocusNode: _amountFocus,
-                  validationMessage: CustomFormValidation.errorMessageAmount(
-                    snapshot.data,
-                    'Amount is required',
-                  ),
-                  validationColor: CustomFormValidation.getColor(
-                    snapshot.data,
-                    _amountFocus,
-                    CustomFormValidation.errorMessageAmount(
-                      snapshot.data,
-                      'Amount is required ',
-                    ),
-                  ),
-                );
-              },
-            ),
+            // StreamBuilder<String>(
+            //   stream: amountStreamController.stream,
+            //   builder: (context, snapshot) {
+            //     return InputField(
+            //       textInputType: TextInputType.text,
+            //       controller: _amountController,
+            //       placeholder: 'Enter Amount',
+            //       label: 'Amount',
+            //       fieldFocusNode: _amountFocus,
+            //       validationMessage: CustomFormValidation.errorMessageAmount(
+            //         snapshot.data,
+            //         'Amount is required',
+            //       ),
+            //       validationColor: CustomFormValidation.getColor(
+            //         snapshot.data,
+            //         _amountFocus,
+            //         CustomFormValidation.errorMessageAmount(
+            //           snapshot.data,
+            //           'Amount is required ',
+            //         ),
+            //       ),
+            //     );
+            //   },
+            // ),
             const Spacer(),
             ValueListenableBuilder<bool>(
                 valueListenable: _canSubmit,

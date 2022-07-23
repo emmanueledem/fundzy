@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:fundzy/app/app.dart';
 import 'package:fundzy/core/constant/constant.dart';
 import 'package:fundzy/core/core.dart';
+import 'package:fundzy/injections.dart';
 import 'package:gap/gap.dart';
+import 'package:logger/logger.dart';
+
+import '../presentation.dart';
 
 class TransferScreen extends StatefulWidget {
   const TransferScreen({Key? key}) : super(key: key);
@@ -42,13 +46,14 @@ class _TransferScreenState extends State<TransferScreen> {
 
   void validateInputs() {
     var canSumit = true;
+
     final phoneNumberError = CustomFormValidation.errorMessagePhoneNumber(
       _phoneNumberController.text,
       'Phone Number is required',
     );
     final amountError = CustomFormValidation.errorMessageAmount(
       _amountController.text,
-      'Phone Number is required',
+      'Amount is required',
     );
     if (phoneNumberError != '' || amountError != '') {
       canSumit = false;
@@ -110,7 +115,7 @@ class _TransferScreenState extends State<TransferScreen> {
               stream: amountStreamController.stream,
               builder: (context, snapshot) {
                 return InputField(
-                  textInputType: TextInputType.text,
+                  textInputType: TextInputType.number,
                   controller: _amountController,
                   placeholder: 'Enter Amount',
                   label: 'Amount',
@@ -137,7 +142,20 @@ class _TransferScreenState extends State<TransferScreen> {
                   return AppBusyButton(
                     title: 'Transfer',
                     disabled: !canSubmit,
-                    onPress: () async {},
+                    onPress: () async {
+                      var res = await sl<TransferProvider>().transfer(context,
+                          phoneNumber: _phoneNumberController.text.trim(),
+                          amount: int.parse(_amountController.text.trim()));
+                      if (res) {
+                        var data = sl<TransferProvider>().transferEntity;
+                        // ignore: use_build_context_synchronously
+                        Navigator.pushReplacementNamed(
+                            context, RouteName.transferSuccess,
+                            arguments: TransferSuccesParams(
+                                message: data!.message,
+                                amount: data.data!.sent));
+                      }
+                    },
                   );
                 }),
             const Gap(20),

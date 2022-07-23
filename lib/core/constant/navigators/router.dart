@@ -28,22 +28,25 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         viewToShow: const SignUp(),
       );
 
-          case RouteName.appTab:
+    case RouteName.appTab:
       return _getPageRoute(
         routeName: settings.name!,
         viewToShow: const AppTabScreen(),
       );
 
-         case RouteName.transfer:
+    case RouteName.transfer:
       return _getPageRoute(
         routeName: settings.name!,
         viewToShow: const TransferScreen(),
       );
 
-         case RouteName.transferSuccess:
+    case RouteName.transferSuccess:
+      final args = settings.arguments as TransferSuccesParams;
       return _getPageRoute(
         routeName: settings.name!,
-        viewToShow: const TransferSucess(),
+        viewToShow: TransferSucess(
+          successparams: args,
+        ),
       );
 
     case RouteName.withdraw:
@@ -52,20 +55,11 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         viewToShow: const WithdrawScreen(),
       );
 
- case RouteName.withdrawSucess:
+    case RouteName.withdrawSucess:
       return _getPageRoute(
         routeName: settings.name!,
         viewToShow: const WithdrawSuccess(),
       );
-    // case RouteName.readNews:
-    //   // ignore: cast_nullable_to_non_nullable
-    //   final args = settings.arguments as ReadNewsScreenParams;
-    //   return _getPageRoute(
-    //     routeName: settings.name!,
-    //     viewToShow: ReadNewsScreen(
-    //       params: args,
-    //     ),
-    //   );
 
     default:
       return MaterialPageRoute<dynamic>(

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fundzy/core/constant/constant.dart';
 import 'package:fundzy/features/auth/presentation/provider/auth_provider.dart';
 import 'package:fundzy/features/home/presentation/provider/transaction_provider.dart';
+import 'package:fundzy/features/transfer/presentation/presentation.dart';
 import 'package:fundzy/injections.dart';
 import 'package:provider/provider.dart';
 
@@ -19,6 +20,9 @@ class App extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => sl<TransactionProvider>(),
         ),
+        ChangeNotifierProvider(
+          create: (_) => sl<TransferProvider>(),
+        )
       ],
       child: MaterialApp(
         useInheritedMediaQuery: true,
