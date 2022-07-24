@@ -25,7 +25,7 @@ class TransferRemoteDataSourceImpl implements TransferRemoteDataSource {
         ],
       ),
     );
-    client = TransfersApiClient(dio) ;
+    client = TransfersApiClient(dio);
   }
 
   final NetworkInfo networkInfo;
@@ -40,6 +40,6 @@ class TransferRemoteDataSourceImpl implements TransferRemoteDataSource {
   return TransferModel.fromJson(respone.response.data as Map<String, dynamic>);
   }else{
     throw NoInternetException();
-  }
+    }
   }
 }

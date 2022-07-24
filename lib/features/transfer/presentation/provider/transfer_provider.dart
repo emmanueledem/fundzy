@@ -5,7 +5,6 @@ import 'package:fundzy/app/view/view.dart';
 import 'package:fundzy/core/core.dart';
 import 'package:fundzy/features/features.dart';
 import 'package:injectable/injectable.dart';
-import 'package:logger/logger.dart';
 
 @lazySingleton
 class TransferProvider extends ChangeNotifier {

@@ -6,6 +6,7 @@ import 'package:fundzy/bootstrap.dart';
 import 'package:fundzy/core/constant/colors.dart';
 import 'package:fundzy/injections.dart';
 import 'app/view/view.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // await dotenv.load(fileName: '.env');
@@ -25,7 +26,7 @@ Future<void> main() async {
   await bootstrap(
     () => DevicePreview(
         // ignore: avoid_redundant_argument_values
-        enabled: !kReleaseMode,
+        enabled: kReleaseMode,
         builder: (context) {
           return const App();
         }),

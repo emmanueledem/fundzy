@@ -56,9 +56,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       );
 
     case RouteName.withdrawSucess:
+      final args = settings.arguments as WithdrawSuccesParams;
       return _getPageRoute(
         routeName: settings.name!,
-        viewToShow: const WithdrawSuccess(),
+        viewToShow: WithdrawSuccess(
+          withdrawParams: args,
+        ),
       );
 
     default:

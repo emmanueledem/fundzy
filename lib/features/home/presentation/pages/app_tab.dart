@@ -16,6 +16,7 @@ class _AppTabScreenState extends State<AppTabScreen> {
     HomeScreen(),
     TransactionScreen(),
     AllUsersScreen(),
+    AccountScreen(),
   ];
   void _onItemTapped(int index) {
     setState(() {
@@ -60,6 +61,10 @@ class _AppTabScreenState extends State<AppTabScreen> {
                   BottomNavigationBarItem(
                     icon: Icon(Icons.people),
                     label: 'Users',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.account_box),
+                    label: 'Accounts',
                   ),
                 ],
               ),

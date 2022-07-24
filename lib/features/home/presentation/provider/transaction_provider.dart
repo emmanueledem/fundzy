@@ -5,7 +5,6 @@ import 'package:fundzy/core/core.dart';
 import 'package:fundzy/core/usecase/usecase.dart';
 import 'package:fundzy/features/features.dart';
 import 'package:injectable/injectable.dart';
-import 'package:logger/logger.dart';
 
 @lazySingleton
 class TransactionProvider extends ChangeNotifier {
@@ -34,7 +33,6 @@ class TransactionProvider extends ChangeNotifier {
       },
       (r) async {
         transactionEntity = r;
-        Logger().d(r);
         isComplete = true;
         notifyListeners();
         return true;

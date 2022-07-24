@@ -1,10 +1,12 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:fundzy/app/app.dart';
 import 'package:fundzy/core/constant/constant.dart';
 import 'package:fundzy/core/core.dart';
+import 'package:fundzy/features/withdraw/presentation/presentation.dart';
+import 'package:fundzy/injections.dart';
 import 'package:gap/gap.dart';
+import 'package:logger/logger.dart';
 
 class WithdrawScreen extends StatefulWidget {
   const WithdrawScreen({Key? key}) : super(key: key);
@@ -26,6 +28,7 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
 
   @override
   void initState() {
+    Logger().d('hello');
     phoneNumberStreamController = StreamController.broadcast();
     amountStreamController = StreamController.broadcast();
 
@@ -42,6 +45,7 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
   }
 
   void validateInputs() {
+    Logger().d(_canSubmit);
     var canSumit = true;
     final phoneNumberError = CustomFormValidation.errorMessagePhoneNumber(
       _phoneNumberController.text,
@@ -53,7 +57,10 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
     );
     if (phoneNumberError != '' || amountError != '') {
       canSumit = false;
+      Logger().d(_canSubmit);
+    
     }
+    Logger().d(_canSubmit);
     _canSubmit.value = canSumit;
   }
 
@@ -75,74 +82,95 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
         foregroundColor: AppColors.primaryColor,
         elevation: 0,
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Gap(17),
-            StreamBuilder<String>(
-              stream: phoneNumberStreamController.stream,
-              builder: (context, snapshot) {
-                return InputField(
-                  textInputType: TextInputType.text,
-                  controller: _phoneNumberController,
-                  placeholder: 'Enter PhoneNumber',
-                  label: 'Phone Number',
-                  fieldFocusNode: _phoneNumberFocus,
-                  validationMessage:
-                      CustomFormValidation.errorMessagePhoneNumber(
-                    snapshot.data,
-                    'Phone Number is required',
-                  ),
-                  validationColor: CustomFormValidation.getColor(
-                    snapshot.data,
-                    _phoneNumberFocus,
-                    CustomFormValidation.errorMessagePhoneNumber(
-                      snapshot.data,
-                      'Phone Number is required ',
-                    ),
-                  ),
-                );
-              },
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              children: [
+                const Gap(17),
+                StreamBuilder<String>(
+                  stream: phoneNumberStreamController.stream,
+                  builder: (context, snapshot) {
+                    return InputField(
+                      textInputType: TextInputType.text,
+                      controller: _phoneNumberController,
+                      placeholder: 'Enter PhoneNumber',
+                      label: 'Phone Number',
+                      fieldFocusNode: _phoneNumberFocus,
+                      validationMessage:
+                          CustomFormValidation.errorMessagePhoneNumber(
+                        snapshot.data,
+                        'Phone Number is required',
+                      ),
+                      validationColor: CustomFormValidation.getColor(
+                        snapshot.data,
+                        _phoneNumberFocus,
+                        CustomFormValidation.errorMessagePhoneNumber(
+                          snapshot.data,
+                          'Phone Number is required ',
+                        ),
+                      ),
+                    );
+                  },
+                ),
+                const Gap(20),
+                StreamBuilder<String>(
+                  stream: amountStreamController.stream,
+                  builder: (context, snapshot) {
+                    return InputField(
+                      textInputType: TextInputType.text,
+                      controller: _amountController,
+                      placeholder: 'Enter Amount',
+                      label: 'Amount',
+                      fieldFocusNode: _amountFocus,
+                      validationMessage:
+                          CustomFormValidation.errorMessageAmount(
+                        snapshot.data,
+                        'Amount is required',
+                      ),
+                      validationColor: CustomFormValidation.getColor(
+                        snapshot.data,
+                        _amountFocus,
+                        CustomFormValidation.errorMessageAmount(
+                          snapshot.data,
+                          'Amount is required ',
+                        ),
+                      ),
+                    );
+                  },
+                ),
+                const Gap(18),
+                ValueListenableBuilder<bool>(
+                    valueListenable: _canSubmit,
+                    builder: (context, canSubmit, child) {
+                      return AppBusyButton(
+                          title: 'Withdraw',
+                          disabled: !canSubmit,
+                          onPress: () async {
+                            Logger().d(canSubmit);
+                            Logger().d("Hello4");
+                            var res = await sl<WithdrawProvider>().withdraw(
+                                context,
+                                phoneNumber: _phoneNumberController.text.trim(),
+                                amount: int.parse(_amountController.text.trim()));
+                            if (res) {
+                              Logger().d('HEy');
+                            // var data = sl<WithdrawProvider>().transferEntity;
+                            // // ignore: use_build_context_synchronously
+                            // Navigator.pushReplacementNamed(
+                            //     context, RouteName.transferSuccess,
+                            //     arguments: WithdrawSuccesParams(
+                            //         message: data!.message,
+                            //         amount: data.data!.sent));
+                          }
+                          },
+                          );
+                    }),
+                const Gap(20),
+              ],
             ),
-            const Gap(20),
-            // StreamBuilder<String>(
-            //   stream: amountStreamController.stream,
-            //   builder: (context, snapshot) {
-            //     return InputField(
-            //       textInputType: TextInputType.text,
-            //       controller: _amountController,
-            //       placeholder: 'Enter Amount',
-            //       label: 'Amount',
-            //       fieldFocusNode: _amountFocus,
-            //       validationMessage: CustomFormValidation.errorMessageAmount(
-            //         snapshot.data,
-            //         'Amount is required',
-            //       ),
-            //       validationColor: CustomFormValidation.getColor(
-            //         snapshot.data,
-            //         _amountFocus,
-            //         CustomFormValidation.errorMessageAmount(
-            //           snapshot.data,
-            //           'Amount is required ',
-            //         ),
-            //       ),
-            //     );
-            //   },
-            // ),
-            const Spacer(),
-            ValueListenableBuilder<bool>(
-                valueListenable: _canSubmit,
-                builder: (context, canSubmit, child) {
-                  return AppBusyButton(
-                    title: 'Withdraw',
-                    disabled: !canSubmit,
-                    onPress: () async {},
-                  );
-                }),
-            const Gap(20),
-          ],
+          ),
         ),
       ),
     );

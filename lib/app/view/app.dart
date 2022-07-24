@@ -4,6 +4,7 @@ import 'package:fundzy/core/constant/constant.dart';
 import 'package:fundzy/features/auth/presentation/provider/auth_provider.dart';
 import 'package:fundzy/features/home/presentation/provider/transaction_provider.dart';
 import 'package:fundzy/features/transfer/presentation/presentation.dart';
+import 'package:fundzy/features/withdraw/presentation/presentation.dart';
 import 'package:fundzy/injections.dart';
 import 'package:provider/provider.dart';
 
@@ -22,7 +23,8 @@ class App extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => sl<TransferProvider>(),
-        )
+        ),
+        ChangeNotifierProvider(create: (_) => sl<WithdrawProvider>())
       ],
       child: MaterialApp(
         useInheritedMediaQuery: true,
