@@ -8,6 +8,7 @@ import 'package:injectable/injectable.dart';
 abstract class TransactionRemoteDataSource {
   Future<List<TransactionList>> transaction();
 }
+
 @LazySingleton(as: TransactionRemoteDataSource)
 class TransactionRemoteDataSourceImpl implements TransactionRemoteDataSource {
   TransactionRemoteDataSourceImpl({required this.networkInfo, required this.dio})

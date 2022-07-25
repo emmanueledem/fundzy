@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 class TransactionEntity extends Equatable {
   final String? type;
-  final int? amount;
+  final dynamic amount;
   final dynamic balance;
   final DateTime? created;
   final String? phoneNumber;

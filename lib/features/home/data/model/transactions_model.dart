@@ -21,7 +21,7 @@ class TransactionModel {
 class TransactionList extends TransactionEntity {
   const TransactionList({
     required String? type,
-    required int? amount,
+    required dynamic amount,
     required String? phoneNumber,
     required dynamic balance,
     required DateTime? created,
