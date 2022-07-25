@@ -19,7 +19,7 @@ class AllUsersModel {
 class AllUsersList extends AllUsersEntity {
   const AllUsersList({
     required String? phoneNumber,
-    required dynamic? balance,
+    required dynamic balance,
     required DateTime? created,
   }) : super(phoneNumber: phoneNumber, balance: balance, created: created);
 

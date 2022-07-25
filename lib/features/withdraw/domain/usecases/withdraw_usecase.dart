@@ -4,7 +4,6 @@ import 'package:fundzy/core/errors/failure.dart';
 import 'package:fundzy/core/usecase/usecase.dart';
 import 'package:fundzy/features/features.dart';
 import 'package:injectable/injectable.dart';
-import 'package:logger/logger.dart';
 
 @lazySingleton
 class WithDrawUseCase extends UseCase<WithdrawalEntity, WithdrawParams> {
@@ -12,7 +11,6 @@ class WithDrawUseCase extends UseCase<WithdrawalEntity, WithdrawParams> {
   WithDrawUseCase({required this.withdrawRepository});
   @override
   Future<Either<Failure, WithdrawalEntity>> call(WithdrawParams params) {
-      Logger().d("Hello2");
     return withdrawRepository.withdraw(
         phoneNumber: params.phoneNumber, amount: params.amount);
   }

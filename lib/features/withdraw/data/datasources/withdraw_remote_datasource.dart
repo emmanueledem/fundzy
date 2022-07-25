@@ -4,7 +4,6 @@ import 'package:fundzy/core/core.dart';
 import 'package:fundzy/core/network/network_info.dart';
 import 'package:fundzy/features/features.dart';
 import 'package:injectable/injectable.dart';
-import 'package:logger/logger.dart';
 
 abstract class WithDrawRemoteDataSource {
   Future<WithdrawalModel> withdraw(
@@ -36,11 +35,9 @@ class WithDrawRemoteDataSourceImpl implements WithDrawRemoteDataSource {
   @override
   Future<WithdrawalModel> withdraw(
       {required String phoneNumber, required int amount}) async {
-    Logger().d("Hello4");
     if (await networkInfo.isConnected) {
       final response =
           await client.withdraw(phoneNumber: phoneNumber, amount: amount);
-      Logger().d(response.response.data);
       return WithdrawalModel.fromJson(
           response.response.data as Map<String, dynamic>);
     } else {

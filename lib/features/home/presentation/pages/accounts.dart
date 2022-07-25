@@ -43,7 +43,7 @@ class _AccountScreenState extends State<AccountScreen> {
         backgroundColor: Colors.white,
         centerTitle: true,
         title: const Text(
-          'Transactions',
+          'Accounts',
           style: TextStyle(
             fontFamily: AppFont.montserratBold,
             fontWeight: FontWeight.w500,

@@ -19,17 +19,17 @@ class _AccoutApiClient implements AccoutApiClient {
 
   @override
   Future<HttpResponse<dynamic>> allAccount() async {
-    const _extra = <String, dynamic>{};
+    const extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final _result = await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(
-        Options(method: 'GET', headers: _headers, extra: _extra)
+    final headers = <String, dynamic>{};
+    final data = <String, dynamic>{};
+    final result = await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(
+        Options(method: 'GET', headers: headers, extra: extra)
             .compose(_dio.options, '/accounts/list',
-                queryParameters: queryParameters, data: _data)
+                queryParameters: queryParameters, data: data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = _result.data;
-    final httpResponse = HttpResponse(value, _result);
+    final value = result.data;
+    final httpResponse = HttpResponse(value, result);
     return httpResponse;
   }
 

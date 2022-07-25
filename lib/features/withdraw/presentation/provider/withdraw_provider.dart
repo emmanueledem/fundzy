@@ -16,7 +16,6 @@ class WithdrawProvider extends ChangeNotifier {
 
   Future<bool> withdraw(BuildContext context,
       {required String phoneNumber, required int amount}) async {
-      Logger().d("Hello1");
     final navigator = Navigator.of(context);
     unawaited(AppPopups.showLoader(context));
     final result = await withDrawUseCase(

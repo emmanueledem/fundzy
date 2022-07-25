@@ -15,58 +15,57 @@ class _WithdrawSuccessState extends State<WithdrawSuccess> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
-        child: SafeArea(
-          child: Center(
-            child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const Image(
-                    image: AssetImage(AppIcon.checkCircle),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 50),
-                    child: Text(widget.withdrawParams!.message!.toString(),
-                        style: const TextStyle(
-                            fontStyle: FontStyle.normal,
-                            fontSize: 34,
-                            color: AppColors.black,
-                            fontFamily: AppFont.montserratBold)),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 50),
-                    child: Text(
-                        'Your order for ${AmountUtil.formatAmount(widget.withdrawParams!.amount!.toDouble())} withdrawal was placed successfully!',
-                        style: const TextStyle(
-                            fontFamily: AppFont.montserrat,
-                            color: AppColors.black,
-                            fontSize: 18)),
-                  ),
-                  const Spacer(),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: AppColors.primaryColor,
-                          borderRadius: BorderRadius.circular(8)),
-                      height: 50,
-                      width: double.infinity,
-                      child: const Center(
-                          child: Text(
-                        'Close',
-                        style: TextStyle(
-                            color: AppColors.white,
-                            fontFamily: AppFont.montserratBold,
-                            fontSize: 15),
-                      )),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
+          child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Image(
+                  image: AssetImage(AppIcon.checkCircle),
+                ),
+                const Text('Withdrawal successful',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontStyle: FontStyle.normal,
+                        fontSize: 34,
+                        color: AppColors.black,
+                        fontFamily: AppFont.montserratBold)),
+                Text(
+                    textAlign: TextAlign.center,
+                    'Your order for ${AmountUtil.formatAmount(widget.withdrawParams!.amount!.toDouble())} withdrawal was placed successfully!',
+                    style: const TextStyle(
+                        fontFamily: AppFont.montserrat,
+                        color: AppColors.black,
+                        fontSize: 18)),
+                // const Spacer(),
+                Expanded(
+                  child: Align(
+                    alignment: FractionalOffset.bottomCenter,
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: AppColors.primaryColor,
+                            borderRadius: BorderRadius.circular(8)),
+                        height: 50,
+                        width: double.infinity,
+                        child: const Center(
+                            child: Text(
+                          'Close',
+                          style: TextStyle(
+                              color: AppColors.white,
+                              fontFamily: AppFont.montserratBold,
+                              fontSize: 15),
+                        )),
+                      ),
                     ),
-                  )
-                ]),
-          ),
+                  ),
+                )
+              ]),
         ),
       ),
     );
@@ -74,8 +73,8 @@ class _WithdrawSuccessState extends State<WithdrawSuccess> {
 }
 
 class WithdrawSuccesParams {
-  final String? message;
-  final int? amount;
+  final dynamic message;
+  final dynamic amount;
 
   WithdrawSuccesParams({required this.message, required this.amount});
 }

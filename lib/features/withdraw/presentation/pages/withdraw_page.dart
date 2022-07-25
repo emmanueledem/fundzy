@@ -6,7 +6,6 @@ import 'package:fundzy/core/core.dart';
 import 'package:fundzy/features/withdraw/presentation/presentation.dart';
 import 'package:fundzy/injections.dart';
 import 'package:gap/gap.dart';
-import 'package:logger/logger.dart';
 
 class WithdrawScreen extends StatefulWidget {
   const WithdrawScreen({Key? key}) : super(key: key);
@@ -28,7 +27,6 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
 
   @override
   void initState() {
-    Logger().d('hello');
     phoneNumberStreamController = StreamController.broadcast();
     amountStreamController = StreamController.broadcast();
 
@@ -45,7 +43,6 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
   }
 
   void validateInputs() {
-    Logger().d(_canSubmit);
     var canSumit = true;
     final phoneNumberError = CustomFormValidation.errorMessagePhoneNumber(
       _phoneNumberController.text,
@@ -57,10 +54,7 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
     );
     if (phoneNumberError != '' || amountError != '') {
       canSumit = false;
-      Logger().d(_canSubmit);
-    
     }
-    Logger().d(_canSubmit);
     _canSubmit.value = canSumit;
   }
 
@@ -145,27 +139,24 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
                     valueListenable: _canSubmit,
                     builder: (context, canSubmit, child) {
                       return AppBusyButton(
-                          title: 'Withdraw',
-                          disabled: !canSubmit,
-                          onPress: () async {
-                            Logger().d(canSubmit);
-                            Logger().d("Hello4");
-                            var res = await sl<WithdrawProvider>().withdraw(
-                                context,
-                                phoneNumber: _phoneNumberController.text.trim(),
-                                amount: int.parse(_amountController.text.trim()));
-                            if (res) {
-                              Logger().d('HEy');
-                            // var data = sl<WithdrawProvider>().transferEntity;
-                            // // ignore: use_build_context_synchronously
-                            // Navigator.pushReplacementNamed(
-                            //     context, RouteName.transferSuccess,
-                            //     arguments: WithdrawSuccesParams(
-                            //         message: data!.message,
-                            //         amount: data.data!.sent));
+                        title: 'Withdraw',
+                        disabled: !canSubmit,
+                        onPress: () async {
+                          var res = await sl<WithdrawProvider>().withdraw(
+                              context,
+                              phoneNumber: _phoneNumberController.text.trim(),
+                              amount: int.parse(_amountController.text.trim()));
+                          if (res) {
+                            var data = sl<WithdrawProvider>().withdrawalEntity;
+                            // ignore: use_build_context_synchronously
+                            Navigator.pushReplacementNamed(
+                                context, RouteName.withdrawSucess,
+                                arguments: WithdrawSuccesParams(
+                                    message: data!.message,
+                                    amount: data.data!));
                           }
-                          },
-                          );
+                        },
+                      );
                     }),
                 const Gap(20),
               ],

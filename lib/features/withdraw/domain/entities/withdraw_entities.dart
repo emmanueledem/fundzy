@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:fundzy/features/withdraw/data/model/model.dart';
 
 class WithdrawalEntity extends Equatable {
   const WithdrawalEntity({
@@ -8,9 +7,9 @@ class WithdrawalEntity extends Equatable {
     required this.data,
   });
 
-  final String? status;
-  final String? message;
-  final WithdrawalData? data;
+  final dynamic status;
+  final dynamic message;
+  final dynamic data;
 
   @override
   List<Object?> get props => [status, message, data];

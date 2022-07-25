@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:fundzy/core/core.dart';
-import 'package:fundzy/core/errors/failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:fundzy/features/home/data/datasources/accounts_remote_data_source.dart';
 import 'package:fundzy/features/home/data/model/accounts_model.dart';
@@ -24,6 +23,7 @@ class AllAccountRepositoryImpl implements AllAccountRepository {
       if (e is NoInternetException) {
         return Left(NoInternetFailure());
       }
+
       if (e is DioError) {
         Logger().e(e.response!.data);
         if (e.response!.data != null && e.response!.data != '') {

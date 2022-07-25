@@ -11,26 +11,12 @@ class WithdrawalModel extends WithdrawalEntity {
       WithdrawalModel(
         status: json["status"],
         message: json["message"],
-        data: WithdrawalData.fromJson(json["data"]),
+        data: json["data"]['withdrawal'],
       );
 
   Map<String, dynamic> toJson() => {
         "status": status,
         "message": message,
-        "data": data!.toJson(),
-      };
-}
-
-class WithdrawalData {
-  WithdrawalData({
-    this.withdrawal,
-  });
-  int? withdrawal;
-  factory WithdrawalData.fromJson(Map<String, dynamic> json) => WithdrawalData(
-        withdrawal: json["withdrawal"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "withdrawal": withdrawal,
+        "data": data,
       };
 }

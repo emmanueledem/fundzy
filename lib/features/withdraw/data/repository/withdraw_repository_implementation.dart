@@ -14,7 +14,6 @@ class WithdrawRepositoryImpl implements WithdrawRepository {
   Future<Either<Failure, WithdrawalModel>> withdraw(
       {required String phoneNumber, required int amount}) async {
     try {
-      Logger().d("Hello3");
       final response = await withDrawRemoteDataSource.withdraw(
           phoneNumber: phoneNumber, amount: amount);
       Logger().d(response);
@@ -36,7 +35,7 @@ class WithdrawRepositoryImpl implements WithdrawRepository {
                   'Service unavailable, please try again!',
             ),
           );
-        } else {
+        }else{
           return const Left(
             ServerFailure(
               message: 'Server error, please try again',
